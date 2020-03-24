@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MapsActivity">
+    android:layout_height="match_parent">
 
     <fragment
         android:id="@+id/map"
@@ -59,11 +57,11 @@
                 android:id="@+id/textView_wrong_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:text="@string/str_mod_loc_location_not_found"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="24dp"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/button_solution_location"
@@ -90,27 +88,27 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_map_marker"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_map_marker" />
 
                 <TextView
-                    android:layout_marginLeft="8dp"
                     android:id="@+id/textView_location_maps_found_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="@string/str_mod_loc_is_correct"
                     android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
-                android:layout_marginLeft="8dp"
                 android:id="@+id/tv_accuracy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Accuracy: 20 meters"
-                android:textSize="14sp"
-                android:layout_marginTop="16dp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,16 +119,16 @@
                     android:id="@+id/button_location_maps_found_refresh"
                     style="@style/ButtonOutline"
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
                     android:text="@string/str_mod_loc_refresh" />
 
                 <Button
                     android:id="@+id/button_location_maps_found_yes"
                     style="@style/ButtonFull"
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
                     android:text="@string/str_mod_loc_yes" />
 
             </LinearLayout>
