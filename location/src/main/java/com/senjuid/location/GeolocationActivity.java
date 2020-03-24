@@ -2,8 +2,6 @@ package com.senjuid.location;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,15 +13,18 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -42,7 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class GeolocationActivity extends BaseActivity {
+public class GeolocationActivity extends BaseActivity {
 
     public static Integer PERMISSIONS_REQUEST_CODE = 1;
     public static Integer PERMISSIONS_REQUEST_SETTINGS = 2;
@@ -88,23 +89,24 @@ public abstract class GeolocationActivity extends BaseActivity {
 
             workLat = -6.174793; // default lat
             workLon = 106.827144; // default lon
-            if(workLocationData != null){
-                try{
+            if (workLocationData != null) {
+                try {
                     JSONObject data = new JSONObject(workLocationData);
                     JSONArray locArray = data.getJSONArray("data");
 
-                    if(locArray != null && locArray.length()> 0){
-                        for(int i=0;i<locArray.length();i++){
+                    if (locArray != null && locArray.length() > 0) {
+                        for (int i = 0; i < locArray.length(); i++) {
                             addCompanyLocation(locArray.getJSONObject(i));
 
                             // set start location
-                            if(i == 0){
+                            if (i == 0) {
                                 workLat = locArray.getJSONObject(i).optDouble("work_lat");
                                 workLon = locArray.getJSONObject(i).optDouble("work_lon");
                             }
                         }
                     }
-                }catch (JSONException je){}
+                } catch (JSONException je) {
+                }
             }
 
             LatLng sydney = new LatLng(workLat, workLon);
@@ -138,7 +140,7 @@ public abstract class GeolocationActivity extends BaseActivity {
 
         // check google api available
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        if(googleApiAvailability.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS){
+        if (googleApiAvailability.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
             googleApiAvailability.getErrorDialog(this, 404, 200, new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
@@ -225,7 +227,7 @@ public abstract class GeolocationActivity extends BaseActivity {
 
                         // show message
                         showHideLoading(false);
-                        if(getIntent().getStringExtra("message2") != null) {
+                        if (getIntent().getStringExtra("message2") != null) {
                             textView_wrong_location.setText(getIntent().getStringExtra("message2"));
                         } else {
                             textView_wrong_location.setText(getString(R.string.str_mod_loc_high_accuracy));
@@ -298,7 +300,7 @@ public abstract class GeolocationActivity extends BaseActivity {
         tvAccuracy = findViewById(R.id.tv_accuracy);
 
         textView_location_maps_found_title = findViewById(R.id.textView_location_maps_found_title);
-        if(getIntent().getStringExtra("message1") != null) {
+        if (getIntent().getStringExtra("message1") != null) {
             textView_location_maps_found_title.setText(getIntent().getStringExtra("message1"));
         }
 
@@ -308,7 +310,12 @@ public abstract class GeolocationActivity extends BaseActivity {
         button_location_maps_found_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onYesButtonPressed();
+                Location location = geolocationViewModel.location.getValue();
+
+                if (location != null) { // make sure location not null
+                    // TODO send result via activity result
+                    finish();
+                }
             }
         });
 
@@ -354,14 +361,6 @@ public abstract class GeolocationActivity extends BaseActivity {
         setupPermissions();
     }
 
-    private void onYesButtonPressed() {
-        Location location = geolocationViewModel.location.getValue();
-
-        if (location != null) { // make sure location not null
-            onYesButtonPressed(location.getLatitude(), location.getLongitude(), "");
-            finish();
-        }
-    }
 
     private void setupPermissions() {
         mPermissions = new AndroidPermissions(this,
@@ -431,6 +430,4 @@ public abstract class GeolocationActivity extends BaseActivity {
     private void onInsufficientPermissions() {
         finish();
     }
-
-    public abstract void onYesButtonPressed(Double latitude, Double longitude, String address);
 }
