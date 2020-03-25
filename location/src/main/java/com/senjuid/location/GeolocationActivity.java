@@ -313,7 +313,10 @@ public class GeolocationActivity extends BaseActivity {
                 Location location = geolocationViewModel.location.getValue();
 
                 if (location != null) { // make sure location not null
-                    // TODO send result via activity result
+                    Intent intent = new Intent();
+                    intent.putExtra("lon", location.getLongitude());
+                    intent.putExtra("lat", location.getLatitude());
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             }

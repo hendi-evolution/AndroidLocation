@@ -50,4 +50,7 @@ dependencies {
     // Android arch
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+
+    // Activity extension
+    implementation 'androidx.activity:activity:1.2.0-alpha02'
 }
