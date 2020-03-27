@@ -1,14 +1,15 @@
 package com.senjuid.androidlocation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.senjuid.location.LocationPlugin;
 import com.senjuid.location.util.LocaleHelper;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     LocationPlugin locationPlugin;
 
@@ -24,7 +25,13 @@ public class MainActivity extends Activity {
         locationPlugin.setLocationPluginListener(new LocationPlugin.LocationPluginListener() {
             @Override
             public void onLocationRetrieved(Double lon, Double lat) {
-                Toast.makeText(MainActivity.this, "MainActivity " + lon + ", " + lat, Toast.LENGTH_LONG).show();
+                String address = locationPlugin.getCompleteAddress(lon, lat);
+                Toast.makeText(MainActivity.this, lon + ", " + lat + ": " + address, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCanceled() {
+                Toast.makeText(MainActivity.this, "Getting location canceled", Toast.LENGTH_LONG).show();
             }
         });
         locationPlugin.open(dataDummy);
