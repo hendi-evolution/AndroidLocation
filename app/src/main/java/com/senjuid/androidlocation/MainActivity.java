@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.senjuid.location.LocationPlugin;
+import com.senjuid.location.LocationPluginOptions;
 import com.senjuid.location.util.LocaleHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Getting location canceled", Toast.LENGTH_LONG).show();
             }
         });
-        locationPlugin.open(dataDummy);
+
+        LocationPluginOptions options = new LocationPluginOptions.Builder()
+                .setData(dataDummy)
+                .build();
+        locationPlugin.open(options);
     }
 
     @Override

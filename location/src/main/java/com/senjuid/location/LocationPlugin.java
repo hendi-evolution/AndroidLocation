@@ -29,7 +29,7 @@ public class LocationPlugin {
         this.locationPluginListener = locationPluginListener;
     }
 
-    public void open(String data) {
+    public void open(LocationPluginOptions options) {
         if (activity instanceof AppCompatActivity) {
             AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
             ActivityResultLauncher<Intent> startForResult = appCompatActivity.prepareCall(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -44,15 +44,17 @@ public class LocationPlugin {
                     }
                 }
             });
-            startForResult.launch(getIntent(data));
+            startForResult.launch(getIntent(options));
         } else {
-            activity.startActivityForResult(getIntent(data), REQUEST);
+            activity.startActivityForResult(getIntent(options), REQUEST);
         }
     }
 
-    public Intent getIntent(String data){
+    public Intent getIntent(LocationPluginOptions options) {
         Intent intent = new Intent(activity, GeolocationActivity.class);
-        intent.putExtra("data", data);
+        intent.putExtra("data", options.data);
+        intent.putExtra("message1", options.message1);
+        intent.putExtra("message2", options.message2);
         return intent;
     }
 
