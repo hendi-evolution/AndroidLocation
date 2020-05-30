@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class LocationPlugin {
-    private final int REQUEST = 1367;
+    public static final int REQUEST = 1367;
+
     private Activity activity;
     private LocationPluginListener locationPluginListener;
 
@@ -43,15 +44,16 @@ public class LocationPlugin {
                     }
                 }
             });
-
-            Intent intent = new Intent(activity, GeolocationActivity.class);
-            intent.putExtra("data", data);
-            startForResult.launch(intent);
+            startForResult.launch(getIntent(data));
         } else {
-            Intent intent = new Intent(activity, GeolocationActivity.class);
-            intent.putExtra("data", data);
-            activity.startActivityForResult(intent, REQUEST);
+            activity.startActivityForResult(getIntent(data), REQUEST);
         }
+    }
+
+    public Intent getIntent(String data){
+        Intent intent = new Intent(activity, GeolocationActivity.class);
+        intent.putExtra("data", data);
+        return intent;
     }
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
