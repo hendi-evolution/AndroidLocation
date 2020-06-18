@@ -61,6 +61,10 @@ public class LocationPlugin {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST) {
             handleResult(data);
+        } else if (resultCode == Activity.RESULT_CANCELED && requestCode == REQUEST) {
+            if (locationPluginListener != null) {
+                locationPluginListener.onCanceled();
+            }
         }
     }
 
