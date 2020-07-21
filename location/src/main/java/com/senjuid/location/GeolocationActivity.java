@@ -316,6 +316,7 @@ public class GeolocationActivity extends BaseActivity {
                     Intent intent = new Intent();
                     intent.putExtra("lon", location.getLongitude());
                     intent.putExtra("lat", location.getLatitude());
+                    intent.putExtra("isMock", location.isFromMockProvider());
                     setResult(RESULT_OK, intent);
                     finish();
                 }

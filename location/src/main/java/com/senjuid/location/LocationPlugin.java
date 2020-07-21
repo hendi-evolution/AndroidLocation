@@ -73,7 +73,8 @@ public class LocationPlugin {
             if (intent != null) {
                 Double lon = intent.getDoubleExtra("lon", 0.0);
                 Double lat = intent.getDoubleExtra("lat", 0.0);
-                locationPluginListener.onLocationRetrieved(lon, lat);
+                Boolean isMock = intent.getBooleanExtra("isMock", false);
+                locationPluginListener.onLocationRetrieved(lon, lat, isMock);
             } else {
                 locationPluginListener.onCanceled();
             }
@@ -101,7 +102,7 @@ public class LocationPlugin {
     }
 
     public interface LocationPluginListener {
-        void onLocationRetrieved(Double lon, Double lat);
+        void onLocationRetrieved(Double lon, Double lat, Boolean isMock);
 
         void onCanceled();
     }
