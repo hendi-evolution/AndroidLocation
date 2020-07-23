@@ -8,4 +8,8 @@
     <string name="you">您</string>
     <string name="your_company">你的公司</string>
     <string name="str_accuracy">精度%s米</string>
+    <string name="str_location_spoofing_message">We detected that you are using a service to spoof your location.</string>
+    <string name="str_continue">Continue</string>
+    <string name="str_dismiss">Dismiss</string>
+    <string name="str_warning">Warning</string>
 </resources>

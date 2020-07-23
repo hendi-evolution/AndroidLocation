@@ -310,15 +310,25 @@ public class GeolocationActivity extends BaseActivity {
         button_location_maps_found_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Location location = geolocationViewModel.location.getValue();
+                final Location location = geolocationViewModel.location.getValue();
 
                 if (location != null) { // make sure location not null
-                    Intent intent = new Intent();
-                    intent.putExtra("lon", location.getLongitude());
-                    intent.putExtra("lat", location.getLatitude());
-                    intent.putExtra("isMock", location.isFromMockProvider());
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    if (location.isFromMockProvider()) {
+                        new AlertDialog.Builder(GeolocationActivity.this)
+                                .setTitle(R.string.str_warning)
+                                .setMessage(R.string.str_location_spoofing_message)
+                                .setPositiveButton(R.string.str_continue, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        locationFoundAndFinish(location);
+                                    }
+                                })
+                                .setNegativeButton(R.string.str_dismiss, null)
+                                .create()
+                                .show();
+                    } else {
+                        locationFoundAndFinish(location);
+                    }
                 }
             }
         });
@@ -336,6 +346,15 @@ public class GeolocationActivity extends BaseActivity {
                 setupPermissions();
             }
         });
+    }
+
+    private void locationFoundAndFinish(Location location) {
+        Intent intent = new Intent();
+        intent.putExtra("lon", location.getLongitude());
+        intent.putExtra("lat", location.getLatitude());
+        intent.putExtra("isMock", location.isFromMockProvider());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void showHideLoading(boolean loading) {

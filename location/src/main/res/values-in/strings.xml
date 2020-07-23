@@ -8,4 +8,8 @@
     <string name="you">Kamu</string>
     <string name="your_company">Perusahaan Kamu</string>
     <string name="str_accuracy">Akurasi %s meter</string>
+    <string name="str_location_spoofing_message">Kami mendeteksi bahwa ada servis yang digunakan untuk memalsukan lokasi.</string>
+    <string name="str_continue">Lanjutkan</string>
+    <string name="str_dismiss">Tutup</string>
+    <string name="str_warning">Peringatan</string>
 </resources>

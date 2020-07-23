@@ -8,4 +8,8 @@
     <string name="you">You</string>
     <string name="your_company">Your company</string>
     <string name="str_accuracy">Accuracy %s meters</string>
+    <string name="str_location_spoofing_message">We detected that you are using a service to spoof your location.</string>
+    <string name="str_continue">Continue</string>
+    <string name="str_dismiss">Dismiss</string>
+    <string name="str_warning">Warning</string>
 </resources>
