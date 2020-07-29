@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'com.github.dcendents.android-maven'
 
@@ -53,4 +55,6 @@ dependencies {
 
     // Activity extension
     implementation 'androidx.activity:activity:1.2.0-alpha02'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
