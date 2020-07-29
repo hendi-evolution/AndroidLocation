@@ -52,9 +52,9 @@ public class LocationPlugin {
 
     public Intent getIntent(LocationPluginOptions options) {
         Intent intent = new Intent(activity, GeolocationActivity.class);
-        intent.putExtra("data", options.data);
-        intent.putExtra("message1", options.message1);
-        intent.putExtra("message2", options.message2);
+        intent.putExtra("data", options.getData());
+        intent.putExtra("message1", options.getMessage1());
+        intent.putExtra("message2", options.getMessage2());
         return intent;
     }
 
