@@ -24,9 +24,7 @@ class LocationPlugin(private val activity: Activity) {
                 if (result.resultCode == Activity.RESULT_OK) {
                     handleResult(result.data)
                 } else {
-                    if (locationPluginListener != null) {
-                        locationPluginListener!!.onCanceled()
-                    }
+                    locationPluginListener?.onCanceled()
                 }
             }
             startForResult.launch(getIntent(options))
@@ -47,22 +45,18 @@ class LocationPlugin(private val activity: Activity) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST) {
             handleResult(data)
         } else if (resultCode == Activity.RESULT_CANCELED && requestCode == REQUEST) {
-            if (locationPluginListener != null) {
-                locationPluginListener!!.onCanceled()
-            }
+            locationPluginListener?.onCanceled()
         }
     }
 
     private fun handleResult(intent: Intent?) {
-        if (locationPluginListener != null) {
-            if (intent != null) {
-                val lon = intent.getDoubleExtra("lon", 0.0)
-                val lat = intent.getDoubleExtra("lat", 0.0)
-                val isMock = intent.getBooleanExtra("isMock", false)
-                locationPluginListener!!.onLocationRetrieved(lon, lat, isMock)
-            } else {
-                locationPluginListener!!.onCanceled()
-            }
+        if (intent != null) {
+            val lon = intent.getDoubleExtra("lon", 0.0)
+            val lat = intent.getDoubleExtra("lat", 0.0)
+            val isMock = intent.getBooleanExtra("isMock", false)
+            locationPluginListener?.onLocationRetrieved(lon, lat, isMock)
+        } else {
+            locationPluginListener?.onCanceled()
         }
     }
 

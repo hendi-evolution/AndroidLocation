@@ -1,6 +1,7 @@
 package com.senjuid.location;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -210,7 +211,7 @@ public class GeolocationActivity extends BaseActivity {
 
     private void observeLiveData() {
         // observe location update
-        geolocationViewModel.location.observe(this, new Observer<Location>() {
+        geolocationViewModel.getLocation().observe(this, new Observer<Location>() {
             @Override
             public void onChanged(@Nullable Location location) {
                 setMyLocation(location);
@@ -218,7 +219,7 @@ public class GeolocationActivity extends BaseActivity {
         });
 
         // observe high accuracy
-        geolocationViewModel.resolvableApiException.observe(this, new Observer<ResolvableApiException>() {
+        geolocationViewModel.getResolvableApiException().observe(this, new Observer<ResolvableApiException>() {
             @Override
             public void onChanged(@Nullable ResolvableApiException e) {
                 if (e != null) {
@@ -270,6 +271,7 @@ public class GeolocationActivity extends BaseActivity {
     }
 
 
+    @SuppressLint("MissingPermission")
     public void setMyLocation(Location location) {
         if (location == null || mMap == null) {
             hideComponent();
@@ -310,7 +312,7 @@ public class GeolocationActivity extends BaseActivity {
         button_location_maps_found_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Location location = geolocationViewModel.location.getValue();
+                final Location location = geolocationViewModel.getLocation().getValue();
 
                 if (location != null) { // make sure location not null
                     if (location.isFromMockProvider()) {
